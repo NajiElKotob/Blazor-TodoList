@@ -1,0 +1,56 @@
+﻿@page "/todo"
+@inject IJSRuntime jsRuntime
+
+@using TodoList.Classes
+
+
+<h1>Todo (@todos.Count(t => !t.IsDone))</h1> @*t => !t.IsDone == false*@
+
+<ul>
+	@foreach (var todo in todos)
+	{
+		<li>
+			<input type="checkbox" @bind="todo.IsDone" />
+			<input type="text" @bind="todo.Title" />
+		</li>
+	}
+</ul>
+
+<div>
+	<input @ref="todoText" type="text" placeholder="Something todo" @bind="newTodo" required="required" />
+	<button  @onclick="AddTodo">Add Todo</button>
+	
+	
+</div>
+<div class="mt-2">
+	<span>Total Todo: @todos.Count</span>
+</div>
+
+
+@code {
+	private List<TodoItem> todos = new();
+	private string newTodo { get; set; }
+
+	ElementReference todoText;
+
+
+	private void AddTodo()
+	{
+		if (!string.IsNullOrWhiteSpace(newTodo))
+		{
+			todos.Add(new TodoItem{Title= newTodo});
+			newTodo = string.Empty;
+
+			//todoText.FocusAsync();
+
+		}
+	}
+
+	protected async override Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+        { }
+            await jsRuntime.InvokeVoidAsync("SetFocusToElement", todoText);
+       
+	}
+}
