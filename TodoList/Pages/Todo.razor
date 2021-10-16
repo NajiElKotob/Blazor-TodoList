@@ -4,7 +4,7 @@
 @using TodoList.Classes
 
 
-<h1>Todo (@todos.Count(t => !t.IsDone))</h1> @*t => !t.IsDone == false*@
+<h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1> @*t => !t.IsDone == false*@
 
 <ul>
 	@foreach (var todo in todos)
@@ -17,7 +17,7 @@
 </ul>
 
 <div>
-	<input @ref="todoText" type="text" placeholder="Something todo" @bind="newTodo" required="required" />
+	<input @ref="todoText" @onkeyup="@Enter" type="text" placeholder="Something todo" @bind="newTodo" required="required" />
 	<button  @onclick="AddTodo">Add Todo</button>
 	
 	
@@ -28,6 +28,7 @@
 
 
 @code {
+	private const string EnterCode = "Enter";
 	private List<TodoItem> todos = new();
 	private string newTodo { get; set; }
 
@@ -43,6 +44,13 @@
 
 			//todoText.FocusAsync();
 
+		}
+	}
+
+	private void Enter(KeyboardEventArgs e){
+		if (e.Key == EnterCode)
+		{
+			AddTodo();
 		}
 	}
 
