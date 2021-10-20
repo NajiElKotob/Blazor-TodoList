@@ -6,17 +6,17 @@
 
 <h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1> @*t => !t.IsDone == false*@
 
-<ul>
+<ul class="no-bullets">
 	@foreach (var todo in todos)
 	{
-		<li>
+		<li class="mb-1">
 			<input type="checkbox" @bind="todo.IsDone" />
 			<input type="text" @bind="todo.Title" />
 		</li>
 	}
 </ul>
 
-<div>
+<div class="mb-2">
 	<input @ref="todoText" @onkeyup="@Enter" type="text" placeholder="Something todo" @bind="newTodo" required="required" />
 	<button  @onclick="AddTodo">Add Todo</button>
 	

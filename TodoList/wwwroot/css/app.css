@@ -4,6 +4,15 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+
+
+/* List Without Bullets https://www.w3schools.com/howto/howto_css_list_without_bullets.asp */
+ul.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+
 h1:focus {
     outline: none;
 }
