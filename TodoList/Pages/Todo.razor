@@ -11,7 +11,8 @@
 	{
 		<li class="mb-1">
 			<input type="checkbox" @bind="todo.IsDone" />
-			<input type="text" @bind="todo.Title" title="@todo.Id" />
+			<input type="text" @bind="todo.Title"  />
+			<input type="button" value="x" title="@todo.Id" @onclick="args => RemoveTodo(todo, args)" />
 		</li>
 	}
 </ul>
@@ -19,9 +20,8 @@
 <div class="mb-2">
 	<input @ref="todoText" @onkeyup="@Enter" type="text" placeholder="Something todo" @bind="newTodo" required="required" />
 	<button  @onclick="AddTodo">Add Todo</button>
-	
-	
 </div>
+
 <div class="mt-2">
 	<span>Total Todo: @todos.Count</span>
 </div>
@@ -48,6 +48,15 @@
 
 			//todoText.FocusAsync();
 
+		}
+	}
+
+	private void RemoveTodo(TodoItem todo, MouseEventArgs args)
+	{
+		//var delTodo = todos.Where(t => t.Id.ToString() == todo.Id.ToString()).FirstOrDefault();
+		if (todo != null)
+		{
+			todos.Remove(todo);
 		}
 	}
 
