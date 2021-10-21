@@ -11,7 +11,7 @@
 	{
 		<li class="mb-1">
 			<input type="checkbox" @bind="todo.IsDone" />
-			<input type="text" @bind="todo.Title" />
+			<input type="text" @bind="todo.Title" title="@todo.Id" />
 		</li>
 	}
 </ul>
@@ -39,7 +39,11 @@
 	{
 		if (!string.IsNullOrWhiteSpace(newTodo))
 		{
-			todos.Add(new TodoItem{Title= newTodo});
+			todos.Add(new TodoItem {
+					Id = System.Guid.NewGuid(),
+					Title = newTodo,
+					IsDone = false
+		});
 			newTodo = string.Empty;
 
 			//todoText.FocusAsync();
@@ -56,9 +60,9 @@
 
 	protected async override Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender)
-        { }
-            await jsRuntime.InvokeVoidAsync("SetFocusToElement", todoText);
+		//if (firstRender) { }
+
+		await jsRuntime.InvokeVoidAsync("SetFocusToElement", todoText);
        
 	}
 }
