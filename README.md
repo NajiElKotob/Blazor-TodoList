@@ -4,7 +4,7 @@ This tutorial shows you how to build and modify a Blazor app.
 `
 ## Blazor Tutorials
 ### [Build your first Blazor app](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro)
-- .NET SDK
+- [.NET SDK](https://dotnet.microsoft.com/download)
 - [dotnet command](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet)
 - Blazor WASM App
 - Run with debugging
