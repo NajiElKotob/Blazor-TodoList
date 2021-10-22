@@ -6,6 +6,6 @@ Todo List Tutorial (Blazor)
 - .NET SDK
 - [dotnet command](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet)
 - Blazor WASM App
-
-)
+- Run with debugging
+- Run with Hot Reload
 
