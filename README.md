@@ -1,6 +1,7 @@
-# Blazor TodoList
-Todo List Tutorial (Blazor)
-
+# Blazor
+`
+This tutorial shows you how to build and modify a Blazor app.
+`
 ## Blazor Tutorials
 ### [Build your first Blazor app](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro)
 - .NET SDK
