@@ -13,7 +13,19 @@ Todo List Tutorial (Blazor)
 - Modify an existing component
 - [Blazor Rounting](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0)
 ### [Build a Blazor todo list app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/build-a-blazor-app?view=aspnetcore-5.0&pivots=webassembly)
+- Create a Blazor app
+- Add a new Todo Razor component
+- @page Razor directive
+- Add the Todo component to the navigation bar
+- Add a TodoItem class
+- Add a field for the todo items in the @code block
+- Add unordered list markup and a foreach loop
+- Add UI (HTML)
+- Add @onclick attribute
+- Add @bind attribute
+- Use @todos.Count
 ### Blazor todo list app (Adv. Touches)
+- Add remove feature
 - Handle Keyboard Events in C#
 - [Blazor JavaScript interoperability (JS interop)](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-5.0)
 - Publish to Azure Static Web Apps
