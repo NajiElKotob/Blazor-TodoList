@@ -13,3 +13,5 @@ Todo List Tutorial (Blazor)
 - Modify an existing component
 - [Blazor Rounting](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0)
 ### [Build a Blazor todo list app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/build-a-blazor-app?view=aspnetcore-5.0&pivots=webassembly)
+### Blazor todo list app (Adv. Touches)
+
