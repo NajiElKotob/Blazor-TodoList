@@ -11,5 +11,5 @@ Todo List Tutorial (Blazor)
 - Try and understand the Counter sample
 - Add a new component
 - Modify an existing component
-- Blazor Rounting
+- [Blazor Rounting](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0)
 
