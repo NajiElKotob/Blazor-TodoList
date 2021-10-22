@@ -8,4 +8,8 @@ Todo List Tutorial (Blazor)
 - Blazor WASM App
 - Run with debugging
 - Run with Hot Reload
+- Try and understand the Counter sample
+- Add a new component
+- Modify an existing component
+- Blazor Rounting
 
