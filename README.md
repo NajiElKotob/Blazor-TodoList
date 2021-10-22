@@ -26,7 +26,7 @@ This tutorial shows you how to build and modify a Blazor app.
 - Add @bind attribute
 - Use @todos.Count
 ### Blazor todo list app (Advanced Touches)
-- Add remove feature
+- Add a remove Todo feature
 - Handle Keyboard Events in C#
 - [Blazor JavaScript interoperability (JS interop)](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-5.0)
 - [Publish to Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/)
