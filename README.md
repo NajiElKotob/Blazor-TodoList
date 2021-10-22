@@ -28,5 +28,6 @@ Todo List Tutorial (Blazor)
 - Add remove feature
 - Handle Keyboard Events in C#
 - [Blazor JavaScript interoperability (JS interop)](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-5.0)
-- Publish to Azure Static Web Apps
+- [Publish to Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/)
+- [Live Demo](https://yellow-pond-061b32610.azurestaticapps.net/todo)
 
