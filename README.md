@@ -28,6 +28,8 @@ This tutorial shows you how to build and modify a Blazor app.
 - Add @onclick attribute
 - Add @bind attribute
 - Use @todos.Count
+### SEO
+* [How do you create an SEO-friendly Blazor WebAssembly application?](https://www.syncfusion.com/faq/blazor/general/how-do-you-create-an-seo-friendly-blazor-webassembly-application) - syncfusion.com
 ### Blazor todo list app (Advanced Touches)
 - Add a remove Todo feature
 - Handle Keyboard Events in C#
