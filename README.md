@@ -12,7 +12,6 @@ This tutorial shows you how to build and modify a Blazor app.
 - Try and understand the Counter sample
 - Add a new component
 - Modify an existing component
-- Live reloading in the browser during development
 - [Blazor Rounting](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0)
 ### [Build a Blazor todo list app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/build-a-blazor-app?view=aspnetcore-5.0&pivots=webassembly)
 - Create a Blazor app
