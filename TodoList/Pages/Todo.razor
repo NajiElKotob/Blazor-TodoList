@@ -1,5 +1,6 @@
 ﻿@page "/todo"
 @inject IJSRuntime jsRuntime
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
 @using TodoList.Classes
 
@@ -11,7 +12,7 @@
 	{
 		<li class="mb-1">
 			<input type="checkbox" @bind="todo.IsDone" />
-			<input type="text" @bind="todo.Title"  />
+			<input type="text" readonly @bind="todo.Title" />
 			<input type="button" value="x" title="@todo.Id" @onclick="args => RemoveTodo(todo, args)" />
 		</li>
 	}
@@ -19,7 +20,7 @@
 
 <div class="mb-2">
 	<input @ref="todoText" @onkeyup="@Enter" type="text" placeholder="Something todo" @bind="newTodo" required="required" />
-	<button  @onclick="AddTodo">Add Todo</button>
+	<button @onclick="AddTodo">Add Todo</button>
 </div>
 
 <div class="mt-2">
@@ -28,9 +29,11 @@
 
 
 @code {
-	private const string EnterCode = "Enter";
-	private List<TodoItem> todos = new();
+	public List<TodoItem> todos = new();
+
 	private string newTodo { get; set; }
+
+	private const string EnterCode = "Enter";
 
 	ElementReference todoText;
 
@@ -39,13 +42,14 @@
 	{
 		if (!string.IsNullOrWhiteSpace(newTodo))
 		{
-			todos.Add(new TodoItem {
+			todos.Add(new TodoItem
+				{
 					Id = System.Guid.NewGuid(),
 					Title = newTodo,
 					IsDone = false
-		});
+				});
 			newTodo = string.Empty;
-
+			SaveSession();
 			//todoText.FocusAsync();
 
 		}
@@ -57,10 +61,17 @@
 		if (todo != null)
 		{
 			todos.Remove(todo);
+			SaveSession();
 		}
 	}
 
-	private void Enter(KeyboardEventArgs e){
+	private void SaveSession()
+	{
+		sessionStorage.SetItemAsync("TodoList", todos);
+	}
+
+	private void Enter(KeyboardEventArgs e)
+	{
 		if (e.Key == EnterCode)
 		{
 			AddTodo();
@@ -69,9 +80,41 @@
 
 	protected async override Task OnAfterRenderAsync(bool firstRender)
 	{
-		//if (firstRender) { }
+		/*		
+		if (firstRender)
+		{
+			LoadTodolist();
+		}
+		*/
+
 
 		await jsRuntime.InvokeVoidAsync("SetFocusToElement", todoText);
-       
+
 	}
+
+	protected override async void OnInitialized()
+	{
+		//LoadTodolist();
+	}
+
+	private async void LoadTodolist()
+	{
+		var todoList = await sessionStorage.GetItemAsync<List<TodoItem>>("TodoList");
+
+		if (todoList != null)
+		{
+			this.todos.Clear();
+			this.todos = (List<TodoItem>)todoList;
+			newTodo = string.Empty;
+		}
+	}
+
+
+	private async void Clear()
+	{
+		//Clear the session storage
+		await sessionStorage.ClearAsync();
+	}
+
+
 }
