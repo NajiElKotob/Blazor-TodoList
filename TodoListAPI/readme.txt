@@ -26,5 +26,13 @@ Running commands like Add-Migration, Update-Database, and Remove-Migration withi
 Using dotnet ef commands from the .NET CLI, such as dotnet ef migrations add, dotnet ef database update, and more.
 Scaffolding a DbContext from an existing database via the CLI.
 
+
 2. Scaffolding
 Scaffold-DbContext "Server=.;Database=TodoList;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+
+3. Update appsettings.json
+  "ConnectionStrings": {
+    "TodoListConnectionString": "Server=.;Database=TodoList;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
+
