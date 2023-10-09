@@ -1,4 +1,12 @@
-﻿NuGet EF Packages:
+﻿  _______        _       _      _     _   
+ |__   __|      | |     | |    (_)   | |  
+    | | ___   __| | ___ | |     _ ___| |_ 
+    | |/ _ \ / _` |/ _ \| |    | / __| __|
+    | | (_) | (_| | (_) | |____| \__ \ |_ 
+    |_|\___/ \__,_|\___/|______|_|___/\__|                                                                     
+
+
+1. NuGet EF Packages:
 Install-Package Microsoft.EntityFrameworkCore
 Install-Package Microsoft.EntityFrameworkCore.Design
 Install-Package Microsoft.EntityFrameworkCore.SqlServer
@@ -18,4 +26,5 @@ Running commands like Add-Migration, Update-Database, and Remove-Migration withi
 Using dotnet ef commands from the .NET CLI, such as dotnet ef migrations add, dotnet ef database update, and more.
 Scaffolding a DbContext from an existing database via the CLI.
 
-Scaffold-DbContext "Server=.;Database=TodoList;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+2. Scaffolding
+Scaffold-DbContext "Server=.;Database=TodoList;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
