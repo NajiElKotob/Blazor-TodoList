@@ -1,0 +1,73 @@
+﻿@page "/todo"
+
+@using TodoListHybridApp.Models
+
+<PageTitle>Todo</PageTitle>
+<h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1> @*t => !t.IsDone == false*@
+
+<ul class="no-bullets">
+	@foreach (var todo in todos)
+	{
+		<li class="mb-1">
+			<input type="checkbox" @bind="todo.IsDone" />
+			<input type="text" readonly @bind="todo.Title" />
+			<input type="button" value="x" title="@todo.Id" @onclick="args => RemoveTodo(todo, args)" />
+		</li>
+	}
+</ul>
+
+<div class="mb-2">
+	<input @ref="todoText" @onkeyup="@Enter" type="text" placeholder="Something todo" @bind="newTodo" required="required" />
+	<button @onclick="AddTodo">Add Todo</button>
+</div>
+
+<div class="mt-2">
+	<span>Total Todo: @todos.Count</span>
+</div>
+
+
+@code {
+	public List<TodoItem> todos = new();
+
+	private string newTodo { get; set; }
+
+	private const string EnterCode = "Enter";
+
+	ElementReference todoText;
+
+
+	private void AddTodo()
+	{
+		if (!string.IsNullOrWhiteSpace(newTodo))
+		{
+			todos.Add(new TodoItem
+				{
+					Id = System.Guid.NewGuid(),
+					Title = newTodo,
+					IsDone = false
+				});
+			newTodo = string.Empty;
+			todoText.FocusAsync();
+
+		}
+	}
+
+	private void RemoveTodo(TodoItem todo, MouseEventArgs args)
+	{
+		//var delTodo = todos.Where(t => t.Id.ToString() == todo.Id.ToString()).FirstOrDefault();
+		if (todo != null)
+		{
+			todos.Remove(todo);
+		}
+	}
+
+
+	private void Enter(KeyboardEventArgs e)
+	{
+		if (e.Key == EnterCode)
+		{
+			AddTodo();
+		}
+	}
+
+}
