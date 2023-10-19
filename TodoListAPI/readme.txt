@@ -36,3 +36,7 @@ Scaffold-DbContext "Server=.;Database=TodoList;Trusted_Connection=True;TrustServ
     "TodoListConnectionString": "Server=.;Database=TodoList;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 
+
+...
+
+4. dotnet run --urls "https://localhost:5099"
