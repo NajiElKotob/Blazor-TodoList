@@ -13,16 +13,19 @@ public static class TodoEndpoints
     /// <param name="app">The web application to which the routes are added.</param>
     public static void MapTodoEndpoints(this WebApplication app)
     {
+        // Retrieve all todos
         app.MapGet("/todos", (TodoListContext context) =>
         {
             return context.Todos.ToList();
         });
 
+        // Retrieve a specific todo by its ID
         app.MapGet("/todos/{id}", (TodoListContext context, int id) =>
         {
             return context.Todos.Find(id) is Todo todo ? Results.Ok(todo) : Results.NotFound();
         });
 
+        // Update a specific todo by its ID
         app.MapPut("/todos/{id}", async (TodoListContext context, int id, Todo updatedTodo) =>
         {
             var todo = context.Todos.Find(id);
@@ -35,6 +38,7 @@ public static class TodoEndpoints
             return Results.Ok(todo);
         });
 
+        // Delete a specific todo by its ID
         app.MapDelete("/todos/{id}", async (TodoListContext context, int id) =>
         {
             var todo = context.Todos.Find(id);
@@ -46,6 +50,7 @@ public static class TodoEndpoints
         });
 
 
+        // Create a new todo
         app.MapPost("/todos", async (TodoListContext context, Todo todo) =>
         {
             context.Todos.Add(todo);
