@@ -8,7 +8,7 @@
 @inject IHttpClientFactory ClientFactory
 
 
-<h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1> @*t => !t.IsDone == false*@
+<h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1>
 
 <ul class="no-bullets">
     @foreach (var todo in todos)
@@ -23,12 +23,14 @@
 </ul>
 
 <div class="mb-2">
-    <input @ref="todoText" @onkeyup="@OnKeyUp"
+    <input @ref="todoText" @onkeyup="@OnKeyUp" @bind="newTodo"
            type="text"
-           placeholder="Something todo"
-    @bind="newTodo"
+           placeholder="Something todo" 
            required="required" />
-    <button @onclick="(() => AddNewTodo(new TodoItem{Title = newTodo, IsDone = false}))">Add Todo</button>
+
+@* <button @onclick="(() => AddNewTodo(new TodoItem{Title = newTodo, IsDone = false}))">Add Todo</button> *@    
+<button @onclick="AddNewTodo">Add Todo</button>
+
 </div>
 
 <div class="mt-2">
@@ -61,13 +63,6 @@
     private async Task LoadTodolist()
     {
 
-        /*if (todoList != null)
-            {
-            this.todos.Clear();
-            this.todos = (List<TodoItem>)todoList;
-            newTodo = string.Empty;
-        }*/
-
         var request = new HttpRequestMessage(HttpMethod.Get,
             "https://localhost:5099/todos");
         request.Headers.Add("Accept", "application/json");
@@ -93,26 +88,21 @@
 
     private void OnKeyUp(KeyboardEventArgs e)
     {
-        if (e.Key == EnterCode)
+
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(newTodo))
         {
-            if (!string.IsNullOrWhiteSpace(newTodo))
-            {
-                var newTodoItem = new TodoItem
-                    {
-                        Title = newTodo,
-                        IsDone = false
-                    };
-                AddNewTodo(newTodoItem);
-            }
+            AddNewTodo();
         }
     }
 
-    private async Task AddNewTodo(TodoItem newTodo)
+    private async Task AddNewTodo()
     {
         var request = new HttpRequestMessage(HttpMethod.Post,
             "https://localhost:5099/todo");
 
-        var jsonContent = JsonSerializer.Serialize(newTodo);
+        var todoItemToAdd = new TodoItem { Title = newTodo, IsDone = false };
+        var jsonContent = JsonSerializer.Serialize(todoItemToAdd);
+
         request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
         request.Headers.Add("Accept", "application/json");

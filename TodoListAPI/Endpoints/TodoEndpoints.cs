@@ -18,12 +18,12 @@ public static class TodoEndpoints
             return context.Todos.ToList();
         });
 
-        app.MapGet("/todo/{id}", (TodoListContext context, int id) =>
+        app.MapGet("/todos/{id}", (TodoListContext context, int id) =>
         {
             return context.Todos.Find(id) is Todo todo ? Results.Ok(todo) : Results.NotFound();
         });
 
-        app.MapPut("/todo/{id}", async (TodoListContext context, int id, Todo updatedTodo) =>
+        app.MapPut("/todos/{id}", async (TodoListContext context, int id, Todo updatedTodo) =>
         {
             var todo = context.Todos.Find(id);
             if (todo == null) return Results.NotFound();
@@ -35,7 +35,7 @@ public static class TodoEndpoints
             return Results.Ok(todo);
         });
 
-        app.MapDelete("/todo/{id}", async (TodoListContext context, int id) =>
+        app.MapDelete("/todos/{id}", async (TodoListContext context, int id) =>
         {
             var todo = context.Todos.Find(id);
             if (todo == null) return Results.NotFound();
@@ -46,14 +46,12 @@ public static class TodoEndpoints
         });
 
 
-        app.MapPost("/todo", async (TodoListContext context, Todo todo) =>
+        app.MapPost("/todos", async (TodoListContext context, Todo todo) =>
         {
             context.Todos.Add(todo);
             await context.SaveChangesAsync();
-            return Results.Created($"/todo/{todo.Id}", todo);
+            return Results.Created($"/todos/{todo.Id}", todo);
         });
 
     }
-
-
 }
