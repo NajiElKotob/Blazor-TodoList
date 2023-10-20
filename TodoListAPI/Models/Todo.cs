@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace TodoListAPI.Models;
+﻿namespace TodoListAPI.Models;
 
 public partial class Todo
 {
