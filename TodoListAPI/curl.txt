@@ -1,7 +1,7 @@
 ﻿CMD
-curl -X GET https://localhost:7205/todos -H "accept: application/json"
+curl -X GET https://localhost:5099/todos -H "accept: application/json"
 
 
 PowerShell
-Invoke-WebRequest -Uri https://localhost:7205/todos -Method GET -Headers @{"accept"="application/json"}
+Invoke-WebRequest -Uri https://localhost:5099/todos -Method GET -Headers @{"accept"="application/json"}
 

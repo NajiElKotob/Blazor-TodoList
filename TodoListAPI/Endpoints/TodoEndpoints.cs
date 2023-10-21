@@ -1,4 +1,5 @@
 ﻿using TodoListAPI.Models;
+using TodoListAPI.Validators;
 
 namespace TodoListAPI.Endpoints;
 
@@ -25,6 +26,28 @@ public static class TodoEndpoints
             return context.Todos.Find(id) is Todo todo ? Results.Ok(todo) : Results.NotFound();
         });
 
+        // Create a new todo
+        app.MapPost("/todos", async (TodoListContext context, Todo todo) =>
+        {
+            // Initialize a new Todo validator and validate the provided todo item.
+            // If validation fails, collect all error messages and return them as a validation problem.
+            var validator = new TodoValidator();
+            var validationResult = validator.Validate(todo);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(err => err.ErrorMessage);
+                return Results.ValidationProblem(new Dictionary<string, string[]>
+                    {
+                        { "Errors", errors.ToArray() }
+                    });
+            }
+
+            context.Todos.Add(todo);
+            await context.SaveChangesAsync();
+            return Results.Created($"/todos/{todo.Id}", todo);
+        });
+
         // Update a specific todo by its ID
         app.MapPut("/todos/{id}", async (TodoListContext context, int id, Todo updatedTodo) =>
         {
@@ -48,15 +71,5 @@ public static class TodoEndpoints
             await context.SaveChangesAsync();
             return Results.Ok();
         });
-
-
-        // Create a new todo
-        app.MapPost("/todos", async (TodoListContext context, Todo todo) =>
-        {
-            context.Todos.Add(todo);
-            await context.SaveChangesAsync();
-            return Results.Created($"/todos/{todo.Id}", todo);
-        });
-
     }
 }

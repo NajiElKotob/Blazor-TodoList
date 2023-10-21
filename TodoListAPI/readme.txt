@@ -40,3 +40,11 @@ Scaffold-DbContext "Server=.;Database=TodoList;Trusted_Connection=True;TrustServ
 ...
 
 4. dotnet run --urls "https://localhost:5099"
+
+...
+
+
+X. Validation
+Use model validation in minimal APIs in ASP.NET Core 6
+https://www.infoworld.com/article/3676077/use-model-validation-in-minimal-apis-in-aspnet-core-6.html
+Tip! 

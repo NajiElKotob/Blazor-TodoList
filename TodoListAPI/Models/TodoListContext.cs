@@ -23,7 +23,7 @@ public partial class TodoListContext : DbContext
             entity.HasKey(e => e.Id);
 
             entity.Property(e => e.Title).IsRequired();
-            entity.Property(e => e.Title).HasMaxLength(50);
+            entity.Property(e => e.Title).HasMaxLength(50);           
         });
 
         OnModelCreatingPartial(modelBuilder);
