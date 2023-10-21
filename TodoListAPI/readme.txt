@@ -44,7 +44,9 @@ Scaffold-DbContext "Server=.;Database=TodoList;Trusted_Connection=True;TrustServ
 ...
 
 
-X. Validation
-Use model validation in minimal APIs in ASP.NET Core 6
-https://www.infoworld.com/article/3676077/use-model-validation-in-minimal-apis-in-aspnet-core-6.html
+X. Validation https://docs.fluentvalidation.net/en/latest/
+• Use model validation in minimal APIs in ASP.NET Core 6 https://www.infoworld.com/article/3676077/use-model-validation-in-minimal-apis-in-aspnet-core-6.html
+• Working with model validation in Minimal APIs https://dotnetthoughts.net/working-model-validation-in-minimal-api/
 Tip! 
+ - OnModelCreating in Entity Framework (both in EF Core and EF6) is primarily used for configuring how your POCO classes map to database tables. It allows you to specify details like table names, column names, relationships, indices, constraints, and other database-specific configurations.
+ - Validation: To validate data at the application level (before it gets saved to the database or even before it reaches a controller action), you'd typically use data annotations on your POCO properties or use libraries like FluentValidation. This kind of validation can ensure business rules, data consistency, and prevent unwanted data from ever reaching deeper layers of your application.
