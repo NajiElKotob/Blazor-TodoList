@@ -1,45 +1,51 @@
-﻿@page "/"
+﻿<!-- Specifies the route for the page -->
+@page "/"
 
+<!-- Import required namespaces -->
 @using System.Text
 @using TodoListBlazorServerApp.Models
 @using System.Text.Json
 @using System.Text.Json.Serialization
 
+<!-- Inject HttpClientFactory to create HTTP clients -->
 @inject IHttpClientFactory ClientFactory
 
-
+<!-- Display the count of pending Todos -->
 <h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1>
 
-
+<!-- List of Todos -->
 <ul class="no-bullets">
     @foreach (var todo in todos)
     {
         <li class="mb-1">
+            <!-- Checkbox to mark todo as done -->
             <input type="checkbox" @bind="todo.IsDone" />
+            <!-- Display todo title -->
             <input type="text" readonly @bind="todo.Title" />
+            <!-- Remove todo button -->
             <input type="button" value="x" title="@todo.Id"
             @onclick="args => RemoveTodo(todo, args)" />
         </li>
     }
 </ul>
 
-
-
+<!-- Input box to add new Todo -->
 <div class="mb-2">
     <input @ref="todoText" @onkeyup="@OnKeyUp" @bind="newTodo"
            type="text"
            placeholder="Something todo"
            required="required" />
 
-    @* <button @onclick="(() => AddNewTodo(new TodoItem{Title = newTodo, IsDone = false}))">Add Todo</button> *@
+    <!-- Button to add new Todo -->
     <button @onclick="AddNewTodo">Add Todo</button>
-
 </div>
 
+<!-- Display total count of Todos -->
 <div class="mt-2">
     <span>Total Todo: @todos.Count</span>
 </div>
 
+<!-- Display error message if there's an error in fetching Todos -->
 @if (getTodosError)
 {
     <div class="alert-warning">
@@ -47,38 +53,39 @@
     </div>
 }
 
-
-
-
-
 @code {
     private string newTodo { get; set; }
 
+    // Constant to check for Enter key press
     private const string EnterCode = "Enter";
 
     ElementReference todoText;
 
+    // List to hold todos
     private List<TodoItem>? todos = new();
+
+    // Flags and messages for error handling
     private bool getTodosError { get; set; } = false;
     private string todosErrorMessage { get; set; }
 
+    // Method called when the component is initialized
     protected override async Task OnInitializedAsync()
     {
         await LoadTodolist();
     }
 
+    // Method to fetch list of todos
     private async Task LoadTodolist()
     {
-
         var request = new HttpRequestMessage(HttpMethod.Get,
             "https://localhost:5099/todos");
         request.Headers.Add("Accept", "application/json");
         request.Headers.Add("User-Agent", "HttpClientFactory-Todo");
 
         var client = ClientFactory.CreateClient();
-
         var response = await client.SendAsync(request);
 
+        // Check for successful response
         if (response.IsSuccessStatusCode)
         {
             using var responseStream = await response.Content.ReadAsStreamAsync();
@@ -93,6 +100,7 @@
         }
     }
 
+    // Method to handle keyup event on new todo input
     private async void OnKeyUp(KeyboardEventArgs e)
     {
         if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(newTodo))
@@ -101,6 +109,7 @@
         }
     }
 
+    // Method to add a new todo
     private async Task AddNewTodo()
     {
         var request = new HttpRequestMessage(HttpMethod.Post,
@@ -110,14 +119,13 @@
         var jsonContent = JsonSerializer.Serialize(todoItemToAdd);
 
         request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
         request.Headers.Add("Accept", "application/json");
         request.Headers.Add("User-Agent", "HttpClientFactory-Todo");
 
         var client = ClientFactory.CreateClient();
-
         var response = await client.SendAsync(request);
 
+        // Check for successful response and update the todo list
         if (response.IsSuccessStatusCode)
         {
             using var responseStream = await response.Content.ReadAsStreamAsync();
@@ -125,16 +133,13 @@
 
             todos.Add(new TodoItem
                 {
-                    //Id is a primary key
                     Title = addedTodo.Title,
                     IsDone = addedTodo.IsDone
                 });
 
             getTodosError = false;
-
             this.newTodo = string.Empty;
-
-            todoText.FocusAsync();
+            todoText.FocusAsync(); // Focus back to the input after adding a todo
         }
         else
         {
@@ -143,9 +148,9 @@
         }
     }
 
+    // Method to remove a todo
     private void RemoveTodo(TodoItem todo, MouseEventArgs args)
     {
-        //var delTodo = todos.Where(t => t.Id.ToString() == todo.Id.ToString()).FirstOrDefault();
         if (todo != null)
         {
             todos.Remove(todo);
