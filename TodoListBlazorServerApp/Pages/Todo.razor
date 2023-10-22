@@ -10,10 +10,7 @@
 
 <h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1>
 
-@if (@getTodosError)
-{
-    
-}
+
 <ul class="no-bullets">
     @foreach (var todo in todos)
     {
@@ -24,24 +21,32 @@
             @onclick="args => RemoveTodo(todo, args)" />
         </li>
     }
-</ul>   
+</ul>
 
 
 
 <div class="mb-2">
     <input @ref="todoText" @onkeyup="@OnKeyUp" @bind="newTodo"
            type="text"
-           placeholder="Something todo" 
+           placeholder="Something todo"
            required="required" />
 
-@* <button @onclick="(() => AddNewTodo(new TodoItem{Title = newTodo, IsDone = false}))">Add Todo</button> *@    
-<button @onclick="AddNewTodo">Add Todo</button>
+    @* <button @onclick="(() => AddNewTodo(new TodoItem{Title = newTodo, IsDone = false}))">Add Todo</button> *@
+    <button @onclick="AddNewTodo">Add Todo</button>
 
 </div>
 
 <div class="mt-2">
     <span>Total Todo: @todos.Count</span>
 </div>
+
+@if (getTodosError)
+{
+    <div class="alert-warning">
+        @todosErrorMessage
+    </div>
+}
+
 
 
 
@@ -55,9 +60,7 @@
 
     private List<TodoItem>? todos = new();
     private bool getTodosError { get; set; } = false;
-    private bool shouldRender { get; set; } = false;
-
-    protected override bool ShouldRender() => shouldRender;
+    private string todosErrorMessage { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -81,12 +84,12 @@
             using var responseStream = await response.Content.ReadAsStreamAsync();
             todos = await JsonSerializer.DeserializeAsync
                 <List<TodoItem>>(responseStream);
-            shouldRender = true;
+            getTodosError = false;
         }
         else
         {
+            todosErrorMessage = $"An error occurred: {response.StatusCode}";
             getTodosError = true;
-            shouldRender = false;
         }
     }
 
@@ -127,7 +130,7 @@
                     IsDone = addedTodo.IsDone
                 });
 
-            shouldRender = true;
+            getTodosError = false;
 
             this.newTodo = string.Empty;
 
@@ -135,8 +138,9 @@
         }
         else
         {
+            todosErrorMessage = $"An error occurred: {response.StatusCode}";
             getTodosError = true;
-        }     
+        }
     }
 
     private void RemoveTodo(TodoItem todo, MouseEventArgs args)
