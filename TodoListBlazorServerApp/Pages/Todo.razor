@@ -10,6 +10,10 @@
 
 <h1>Pending Todo (@todos.Count(t => !t.IsDone))</h1>
 
+@if (@getTodosError)
+{
+    
+}
 <ul class="no-bullets">
     @foreach (var todo in todos)
     {
@@ -20,7 +24,9 @@
             @onclick="args => RemoveTodo(todo, args)" />
         </li>
     }
-</ul>
+</ul>   
+
+
 
 <div class="mb-2">
     <input @ref="todoText" @onkeyup="@OnKeyUp" @bind="newTodo"
@@ -48,10 +54,8 @@
     ElementReference todoText;
 
     private List<TodoItem>? todos = new();
-    private bool getTodosError;
-    private bool shouldRender;
-
-
+    private bool getTodosError { get; set; } = false;
+    private bool shouldRender { get; set; } = false;
 
     protected override bool ShouldRender() => shouldRender;
 
@@ -77,28 +81,27 @@
             using var responseStream = await response.Content.ReadAsStreamAsync();
             todos = await JsonSerializer.DeserializeAsync
                 <List<TodoItem>>(responseStream);
+            shouldRender = true;
         }
         else
         {
             getTodosError = true;
+            shouldRender = false;
         }
-
-        shouldRender = true;
     }
 
-    private void OnKeyUp(KeyboardEventArgs e)
+    private async void OnKeyUp(KeyboardEventArgs e)
     {
-
         if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(newTodo))
         {
-            AddNewTodo();
+            await AddNewTodo();
         }
     }
 
     private async Task AddNewTodo()
     {
         var request = new HttpRequestMessage(HttpMethod.Post,
-            "https://localhost:5099/todo");
+            "https://localhost:5099/todos");
 
         var todoItemToAdd = new TodoItem { Title = newTodo, IsDone = false };
         var jsonContent = JsonSerializer.Serialize(todoItemToAdd);
@@ -123,6 +126,9 @@
                     Title = addedTodo.Title,
                     IsDone = addedTodo.IsDone
                 });
+
+            shouldRender = true;
+
             this.newTodo = string.Empty;
 
             todoText.FocusAsync();
@@ -130,9 +136,7 @@
         else
         {
             getTodosError = true;
-        }
-
-        shouldRender = true;
+        }     
     }
 
     private void RemoveTodo(TodoItem todo, MouseEventArgs args)
@@ -143,7 +147,4 @@
             todos.Remove(todo);
         }
     }
-
-
-
 }
