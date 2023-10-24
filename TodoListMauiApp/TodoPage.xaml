@@ -4,7 +4,8 @@
              x:Class="TodoListMauiApp.TodoPage"
              Title="Todo">
 
-    <StackLayout Spacing="20">
+    <Grid>
+        <StackLayout Spacing="20">
 
         <!-- Display the count of pending Todos -->
         <Label Text="{Binding PendingTodosCount}" />
@@ -41,4 +42,6 @@
         <Label Text="{Binding TodosErrorMessage}" TextColor="Red" IsVisible="{Binding GetTodosError}" />
 
     </StackLayout>
+
+    </Grid>
 </ContentPage>

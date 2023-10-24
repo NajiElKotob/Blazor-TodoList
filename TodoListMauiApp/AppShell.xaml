@@ -15,9 +15,5 @@
     Title="Todo"
     ContentTemplate="{DataTemplate local:TodoPage}"
     Route="TodoPage" />   
-    
-
-
-
 
 </Shell>
