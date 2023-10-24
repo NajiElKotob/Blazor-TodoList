@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListHybridApp", "TodoLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListBlazorServerApp", "TodoListBlazorServerApp\TodoListBlazorServerApp.csproj", "{D1B0DF29-0581-4FEF-8217-1F7E55A658F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListMauiApp", "TodoListMauiApp\TodoListMauiApp.csproj", "{09F567A1-3B01-4FAB-A46E-A23A394A649D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListMauiApp", "TodoListMauiApp\TodoListMauiApp.csproj", "{09F567A1-3B01-4FAB-A46E-A23A394A649D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListWinFormsApp", "TodoListWinFormsApp\TodoListWinFormsApp.csproj", "{9BF129BE-2653-4201-8D3F-7EF8D9B87EBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{09F567A1-3B01-4FAB-A46E-A23A394A649D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09F567A1-3B01-4FAB-A46E-A23A394A649D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09F567A1-3B01-4FAB-A46E-A23A394A649D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9BF129BE-2653-4201-8D3F-7EF8D9B87EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF129BE-2653-4201-8D3F-7EF8D9B87EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF129BE-2653-4201-8D3F-7EF8D9B87EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF129BE-2653-4201-8D3F-7EF8D9B87EBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
