@@ -5,10 +5,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TodoListMauiApp"
     Shell.FlyoutBehavior="Disabled">
-
+    
     <ShellContent
-        Title="Home"
+        Title="Todo"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    
+    <ShellContent
+    Title="Todo"
+    ContentTemplate="{DataTemplate local:TodoPage}"
+    Route="TodoPage" />   
+    
+
+
+
 
 </Shell>

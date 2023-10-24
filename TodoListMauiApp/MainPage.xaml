@@ -1,41 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TodoListMauiApp.MainPage">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"           
+             x:Class="TodoListMauiApp.MainPage"
+             Shell.NavBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <!-- Main grid container with centered and expanded content -->
+    <Grid HorizontalOptions="CenterAndExpand">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+        <!-- Define rows, first row takes up 10% and the second 90% of the available space -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <!-- First row: 10% of total height -->
+            <RowDefinition Height="0.9*"/>
+            <!-- Second row: 90% of total height -->
+        </Grid.RowDefinitions>
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+        <!-- Framed container for content in the second row, with rounded corners and specific styling -->
+        <Frame Padding="0"
+           Grid.Row="1"
+           CornerRadius="20"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="FillAndExpand"
+           BackgroundColor="#10404040"
+           BorderColor="Transparent"
+           Margin="0,0,0,-20">
+            <!-- Negative margin to overlap content if needed -->
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <!-- Vertical stack layout for organizing child elements -->
+            <StackLayout VerticalOptions="Start"
+                     Grid.Row="1">
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                <!-- Label displaying a short description of the Todo app -->
+                <Label Text="A simple Todo app to manage your tasks."
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Start"
+                Margin="20"
+                TextColor="Black"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                <!-- Navigation button styled with an emoji and rounded corners -->
+                <Button Text="📝 Go to Todo Page" 
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White" 
+                Padding="20,10" 
+                CornerRadius="10" 
+                HeightRequest="50"
+                Margin="20"
+                Command="{Binding NavigateToTodoCommand}"/>
+                <!-- Binding to the command to navigate to Todo page -->
+            </StackLayout>
+        </Frame>
+    </Grid>
+
 
 </ContentPage>
