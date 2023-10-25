@@ -47,6 +47,11 @@
                 Margin="20"
                 Command="{Binding NavigateToTodoCommand}"/>
                 <!-- Binding to the command to navigate to Todo page -->
+
+
+                <Label Text="{Binding ConnectionIcon}" 
+                    FontSize="Large" />
+
             </StackLayout>
         </Frame>
     </Grid>

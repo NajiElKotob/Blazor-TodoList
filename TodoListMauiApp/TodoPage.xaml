@@ -1,47 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TodoListMauiApp.ViewModels"
              x:Class="TodoListMauiApp.TodoPage"
              Title="Todo">
+    <StackLayout>
+        <Label Text="{Binding Todos.Count}" />
 
-    <Grid>
-        <StackLayout Spacing="20">
-
-        <!-- Display the count of pending Todos -->
-        <Label Text="{Binding PendingTodosCount}" />
-
-        <!-- List of Todos -->
-        <ListView ItemsSource="{Binding Todos}" HasUnevenRows="True">
+        <ListView ItemsSource="{Binding Todos}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Spacing="10">
-                            <!-- Checkbox to mark todo as done -->
-                            <CheckBox IsChecked="{Binding IsDone}" />
-                            <!-- Display todo title -->
-                            <Entry Text="{Binding Title}" IsReadOnly="True" />
-                            <!-- Remove todo button -->
-                            <Button Text="x" Command="{Binding Source={x:Reference page}, Path=BindingContext.RemoveTodoCommand}" CommandParameter="{Binding}" />
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Label Text="{Binding Title}" VerticalOptions="Center" FlexLayout.Grow="1"/>
+                            <Button Text="❌" Command="{Binding Source={RelativeSource AncestorType={x:Type local:TodoViewModel}}, Path=RemoveTodoCommand}" CommandParameter="{Binding}" VerticalOptions="Center"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Input box to add new Todo -->
-        <StackLayout Orientation="Horizontal" Spacing="10">
-            <Entry Placeholder="Something todo" Text="{Binding NewTodo}" />
-            <!-- Button to add new Todo -->
-            <Button Text="Add Todo" Command="{Binding AddNewTodoCommand}" />
-        </StackLayout>
+        <Entry Text="{Binding NewTodo}" />
+        <Button Text="Add Todo" Command="{Binding AddNewTodoCommand}" />
 
-        <!-- Display total count of Todos -->
-        <Label Text="{Binding TotalTodosCount}" />
+        <Label Text="{Binding ConnectionIcon}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Start" />
 
-        <!-- Display error message if there's an error in fetching Todos -->
-        <Label Text="{Binding TodosErrorMessage}" TextColor="Red" IsVisible="{Binding GetTodosError}" />
-
+        
     </StackLayout>
 
-    </Grid>
+    
 </ContentPage>
