@@ -5,7 +5,12 @@
              x:Class="TodoListMauiApp.TodoPage"
              Title="Todo">
     <StackLayout>
-        <Label Text="{Binding Todos.Count}" />
+        <Label Text="{Binding Todos.Count, StringFormat='Todos {0}'}"
+               FontAttributes="Bold"
+               TextColor="{StaticResource Primary}"
+               Margin="5,10"/>
+
+        <BoxView Margin="5" HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" VerticalOptions="Center" />
 
         <ListView ItemsSource="{Binding Todos}">
             <ListView.ItemTemplate>
@@ -20,10 +25,17 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Entry Text="{Binding NewTodo}" />
-        <Button Text="Add Todo" Command="{Binding AddNewTodoCommand}" />
 
-        <Label Text="{Binding ConnectionIcon}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Start" />
+
+        <Entry Margin="5,10" Text="{Binding NewTodo}" />
+        <Button Margin="5,10" Text="Add Todo" Command="{Binding AddNewTodoCommand}" />
+
+        <Label 
+            Text="{Binding ConnectionIcon, StringFormat='Internet Status: {0}'}" 
+            FontSize="Small" 
+            Margin="20"
+            HorizontalOptions="Center" 
+            VerticalOptions="Start" />
 
         
     </StackLayout>
