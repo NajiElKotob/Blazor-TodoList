@@ -1,98 +1,70 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text.Json;
 using System.Windows.Input;
 using TodoListMauiApp.Models;
+using TodoListMauiApp.Services;
 
 namespace TodoListMauiApp.ViewModels;
 
-internal class TodoViewModel : INotifyPropertyChanged
-{
-
-    private HttpClient client;
-    private string newTodo;
-
-    public ICommand AddTodoCommand { get; set; }
-
-    // Event to notify when a property changes
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    // Collection to store and manage Todo items
-    public ObservableCollection<TodoItem> Todos { get; set; }
-
-    // Command to handle adding a new Todo item
-    public ICommand AddNewTodoCommand { get; set; }
-
-    // Command to handle removing an existing Todo item
-    public ICommand RemoveTodoCommand { get; set; }
-
-    private bool _isConnected;
-
-    public TodoViewModel()
+internal class TodoViewModel : INotifyPropertyChanged, IDisposable
     {
-        // Initial connectivity status check
-        IsConnected = Connectivity.NetworkAccess == NetworkAccess.Internet;
+        private string newTodo;
+        private bool _isConnected;
 
-        // Subscribe to connectivity changes for dynamic updates
-        Connectivity.ConnectivityChanged += OnConnectivityChanged;
+        private readonly TodoService todoService;
+        private readonly ConnectivityService connectivityService;
 
+        public ICommand AddTodoCommand { get; set; }
+        public ObservableCollection<TodoItem> Todos { get; set; }
+        public ICommand AddNewTodoCommand { get; set; }
+        public ICommand RemoveTodoCommand { get; set; }
 
-        client = new HttpClient
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public TodoViewModel()
         {
-            BaseAddress = new Uri("https://localhost:5099/")
-        };
+            todoService = new TodoService();
+            connectivityService = new ConnectivityService();
 
-        Todos = new ObservableCollection<TodoItem>();
-        AddTodoCommand = new Command(async () => await AddNewTodo());
-        RemoveTodoCommand = new Command<TodoItem>(RemoveTodo);
+            connectivityService.ConnectivityChanged += OnConnectivityChanged;
 
-        LoadTodoList();
-    }
+            IsConnected = connectivityService.IsConnected;
 
-    private async void LoadTodoList()
-    {
-        try
+            Todos = new ObservableCollection<TodoItem>();
+
+            AddTodoCommand = new Command(async () => await AddNewTodo());
+            RemoveTodoCommand = new Command<TodoItem>(RemoveTodo);
+
+            LoadTodoList();
+        }
+
+        private async void LoadTodoList()
         {
-            var response = await client.GetAsync("todos");
-            if (response.IsSuccessStatusCode)
+            var loadedTodos = await todoService.LoadTodosAsync();
+            if (loadedTodos != null)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var loadedTodos = JsonSerializer.Deserialize<List<TodoItem>>(json);
-
                 Todos.Clear();
                 foreach (var todo in loadedTodos)
                 {
                     Todos.Add(todo);
                 }
             }
-            else
+        }
+
+        private async Task AddNewTodo()
+        {
+            // Implementation here...
+            NewTodo = string.Empty;
+        }
+
+        private void RemoveTodo(TodoItem todo)
+        {
+            if (todo != null)
             {
-                // Handle error. Maybe show an alert or a message to the user.
+                Todos.Remove(todo);
             }
         }
-        catch (Exception ex)
-        {
-            // Handle exception. Maybe log it or show an alert to the user.
-        }
-    }
 
-    private async Task AddNewTodo()
-    {
-        // ... Similar to your Blazor code ...
-
-        //Todos.Add(addedTodo);
-        NewTodo = string.Empty;
-    }
-
-    private void RemoveTodo(TodoItem todo)
-    {
-        if (todo != null)
-        {
-            Todos.Remove(todo);
-        }
-    }
-
-    // Property to track internet connectivity status
     public bool IsConnected
     {
         get => _isConnected;
@@ -101,13 +73,12 @@ internal class TodoViewModel : INotifyPropertyChanged
             if (_isConnected != value)
             {
                 _isConnected = value;
-
-                // Notify UI of connectivity status change
                 OnPropertyChanged(nameof(IsConnected));
-                OnPropertyChanged(nameof(ConnectionIcon)); // Notify about the icon change
+                OnPropertyChanged(nameof(ConnectionIcon));
             }
         }
     }
+
 
     public string ConnectionIcon
     {
@@ -120,27 +91,28 @@ internal class TodoViewModel : INotifyPropertyChanged
         get => newTodo;
         set
         {
-            newTodo = value;
-            OnPropertyChanged(nameof(NewTodo));
+            if (newTodo != value)
+            {
+                newTodo = value;
+                OnPropertyChanged(nameof(NewTodo));
+            }
         }
     }
 
 
-    // Helper method to raise the PropertyChanged event
     protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            IsConnected = e.NetworkAccess == NetworkAccess.Internet;
+        }
+
+        public void Dispose()
+        {
+            connectivityService.Dispose();
+        }
     }
 
-    // Event handler to update IsConnected when connectivity changes
-    private void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
-    {
-        IsConnected = e.NetworkAccess == NetworkAccess.Internet;
-    }
-
-    // Cleanup method to unsubscribe from events, avoiding memory leaks
-    public void Dispose()
-    {
-        Connectivity.ConnectivityChanged -= OnConnectivityChanged;
-    }
-}
