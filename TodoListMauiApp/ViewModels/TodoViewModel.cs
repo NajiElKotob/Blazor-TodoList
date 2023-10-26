@@ -6,85 +6,66 @@ using TodoListMauiApp.Services;
 
 namespace TodoListMauiApp.ViewModels;
 
-internal class TodoViewModel : INotifyPropertyChanged, IDisposable
+internal class TodoViewModel : INotifyPropertyChanged
+{
+    private bool isLoading = true;
+
+    private string newTodo;
+
+    private readonly TodoService todoService;
+
+    public ICommand AddTodoCommand { get; set; }
+    public ObservableCollection<TodoItem> Todos { get; set; }
+    public ICommand AddNewTodoCommand { get; set; }
+    public ICommand RemoveTodoCommand { get; set; }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public TodoViewModel()
     {
-        private string newTodo;
-        private bool _isConnected;
+        todoService = new TodoService();
 
-        private readonly TodoService todoService;
-        private readonly ConnectivityService connectivityService;
 
-        public ICommand AddTodoCommand { get; set; }
-        public ObservableCollection<TodoItem> Todos { get; set; }
-        public ICommand AddNewTodoCommand { get; set; }
-        public ICommand RemoveTodoCommand { get; set; }
+        Todos = new ObservableCollection<TodoItem>();
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        AddTodoCommand = new Command(async () => await AddNewTodo());
+        RemoveTodoCommand = new Command<TodoItem>(RemoveTodo);
 
-        public TodoViewModel()
-        {
-            todoService = new TodoService();
-            connectivityService = new ConnectivityService();
+        LoadTodoList();
+    }
 
-            connectivityService.ConnectivityChanged += OnConnectivityChanged;
-
-            IsConnected = connectivityService.IsConnected;
-
-            Todos = new ObservableCollection<TodoItem>();
-
-            AddTodoCommand = new Command(async () => await AddNewTodo());
-            RemoveTodoCommand = new Command<TodoItem>(RemoveTodo);
-
-            LoadTodoList();
-        }
-
-        private async void LoadTodoList()
-        {
-            var loadedTodos = await todoService.LoadTodosAsync();
-            if (loadedTodos != null)
-            {
-                Todos.Clear();
-                foreach (var todo in loadedTodos)
-                {
-                    Todos.Add(todo);
-                }
-            }
-        }
-
-        private async Task AddNewTodo()
-        {
-            // Implementation here...
-            NewTodo = string.Empty;
-        }
-
-        private void RemoveTodo(TodoItem todo)
-        {
-            if (todo != null)
-            {
-                Todos.Remove(todo);
-            }
-        }
-
-    public bool IsConnected
+    private async void LoadTodoList()
     {
-        get => _isConnected;
-        set
+
+        var loadedTodos = await todoService.LoadTodosAsync();
+
+        await Task.Delay(2000); // Waits for 5 seconds without blocking the main thread
+
+        IsLoading = false;
+
+        if (loadedTodos != null)
         {
-            if (_isConnected != value)
+            Todos.Clear();
+            foreach (var todo in loadedTodos)
             {
-                _isConnected = value;
-                OnPropertyChanged(nameof(IsConnected));
-                OnPropertyChanged(nameof(ConnectionIcon));
+                Todos.Add(todo);
             }
         }
     }
 
-
-    public string ConnectionIcon
+    private async Task AddNewTodo()
     {
-        get => IsConnected ? "🔗" : "❌";
+        // Implementation here...
+        NewTodo = string.Empty;
     }
 
+    private void RemoveTodo(TodoItem todo)
+    {
+        if (todo != null)
+        {
+            Todos.Remove(todo);
+        }
+    }
 
     public string NewTodo
     {
@@ -99,20 +80,22 @@ internal class TodoViewModel : INotifyPropertyChanged, IDisposable
         }
     }
 
-
-    protected virtual void OnPropertyChanged(string propertyName)
+   
+    public bool IsLoading
+    {
+        get => isLoading;
+        set
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
-        {
-            IsConnected = e.NetworkAccess == NetworkAccess.Internet;
-        }
-
-        public void Dispose()
-        {
-            connectivityService.Dispose();
+            isLoading = value;
+            OnPropertyChanged(nameof(IsLoading));
         }
     }
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+
+}
 

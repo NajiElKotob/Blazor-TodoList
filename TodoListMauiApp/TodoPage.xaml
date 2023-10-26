@@ -4,20 +4,35 @@
              xmlns:local="clr-namespace:TodoListMauiApp.ViewModels"
              x:Class="TodoListMauiApp.TodoPage"
              Title="Todo">
+
+    <!-- Main vertical stack layout -->
     <StackLayout>
+
+        <!-- Display total number of todos -->
         <Label Text="{Binding Todos.Count, StringFormat='Todos {0}'}"
                FontAttributes="Bold"
                TextColor="{StaticResource Primary}"
                Margin="5,10"/>
 
+        <!-- Horizontal separator line -->
         <BoxView Margin="5" HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" VerticalOptions="Center" />
 
+        <!-- ActivityIndicator in the second row -->
+        <ActivityIndicator
+                           IsRunning="{Binding IsLoading}"
+                           IsVisible="{Binding IsLoading}" 
+                           HorizontalOptions="CenterAndExpand" 
+                           VerticalOptions="CenterAndExpand" />
+        
+        <!-- List displaying the todo items -->
         <ListView ItemsSource="{Binding Todos}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <!-- Horizontal layout for each todo item (with potential for a delete button) -->
                         <StackLayout Orientation="Horizontal" Padding="10">
                             <Label Text="{Binding Title}" VerticalOptions="Center" FlexLayout.Grow="1"/>
+                            <!-- Commented out button for deleting todo item -->
                             <!--<Button Text="❌" Command="{Binding Source={RelativeSource AncestorType={x:Type local:TodoViewModel}}, Path=RemoveTodoCommand}" CommandParameter="{Binding}" VerticalOptions="Center"/>-->
                         </StackLayout>
                     </ViewCell>
@@ -25,20 +40,11 @@
             </ListView.ItemTemplate>
         </ListView>
 
-
-
+        <!-- Entry field to add new todo -->
         <Entry Margin="5,10" Text="{Binding NewTodo}" />
-        <Button Margin="5,10" Text="Add Todo" Command="{Binding AddNewTodoCommand}" />
 
-        <Label 
-            Text="{Binding ConnectionIcon, StringFormat='Internet Status: {0}'}" 
-            FontSize="Small" 
-            Margin="20"
-            HorizontalOptions="Center" 
-            VerticalOptions="Start" />
+        <!-- Button to trigger the addition of a new todo -->
+        <Button IsEnabled="False" Margin="5,10" Text="Add Todo" Command="{Binding AddNewTodoCommand}" />
 
-        
     </StackLayout>
-
-    
 </ContentPage>

@@ -49,8 +49,13 @@
                 <!-- Binding to the command to navigate to Todo page -->
 
 
-                <Label Text="{Binding ConnectionIcon}" 
-                    FontSize="Large" />
+                <!-- Display connection status with an icon or text -->
+                <Label 
+            Text="{Binding ConnectionIcon, StringFormat='Internet Status {0}'}" 
+            FontSize="Small" 
+            Margin="20"
+            HorizontalOptions="Center" 
+            VerticalOptions="End" />
 
             </StackLayout>
         </Frame>
