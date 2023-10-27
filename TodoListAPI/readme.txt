@@ -50,3 +50,21 @@ X. Validation https://docs.fluentvalidation.net/en/latest/
 Tip! 
  - OnModelCreating in Entity Framework (both in EF Core and EF6) is primarily used for configuring how your POCO classes map to database tables. It allows you to specify details like table names, column names, relationships, indices, constraints, and other database-specific configurations.
  - Validation: To validate data at the application level (before it gets saved to the database or even before it reaches a controller action), you'd typically use data annotations on your POCO properties or use libraries like FluentValidation. This kind of validation can ensure business rules, data consistency, and prevent unwanted data from ever reaching deeper layers of your application.
+
+
+Z. JWT
+Authentication and authorization in minimal APIs
+https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/security?view=aspnetcore-7.0
+
+Authorization and Authentication in Minimal APIs
+https://www.telerik.com/blogs/authorization-authentication-minimal-apis
+
+ASP.NET Core - Custom Token Authentication
+https://dev.to/kazinix/aspnet-core-custom-token-authentication-2j9a
+
+ASP.NET Core - Write a Simple JWT Authentication
+https://dev.to/kazinix/aspnet-core-write-a-simple-jwt-authentication-and-authorization-7nk
+
+Windows (using PowerShell):
+Use the following command to generate a 256-bit key encoded in base64:
+[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Minimum 0 -Maximum 256 })).Substring(0, 44)
