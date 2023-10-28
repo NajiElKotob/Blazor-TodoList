@@ -56,7 +56,7 @@ Z. JWT
 Authentication and authorization in minimal APIs
 https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/security?view=aspnetcore-7.0
 
-Authorization and Authentication in Minimal APIs
+Authorization and Authentication in Minimal APIs ***
 https://www.telerik.com/blogs/authorization-authentication-minimal-apis
 
 ASP.NET Core - Custom Token Authentication

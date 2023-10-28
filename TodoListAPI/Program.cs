@@ -15,7 +15,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TodoListContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TodoListConnectionString")));
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+/*            builder.WithOrigins("http://localhost:5099", "https://example.net")
+                    .AllowAnyHeader()
+                   .AllowAnyMethod();*/
+
+            // Allow all origins
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 // Register authentication services to the dependency injection container. 
 // This alone does not enforce authentication. Additional configuration and middleware 
@@ -42,6 +56,12 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 
 builder.Services.AddAuthorization();
 
+/*builder.Services.AddAuthorizationBuilder()
+        .AddPolicy("DefaultAuthPolicy", policy =>
+        policy
+        .RequireRole("admin")
+        .RequireClaim("department", "IT"));*/
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -53,15 +73,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 // ----------------- Start of Endpoints -----------------
 
 
-// Map the Todo-related routes to the web application.
+// Map the endpoints to the web application.
 app.MapTodoEndpoints();
-
+app.MapAuthEndpoints();
 
 // ----------------- End of Endpoints -----------------
 

@@ -14,6 +14,13 @@ public static class TodoEndpoints
     /// <param name="app">The web application to which the routes are added.</param>
     public static void MapTodoEndpoints(this WebApplication app)
     {
+
+        // Retrieve all todos
+        app.MapGet("/hello", () =>
+        {
+            return "Hello!";
+        }).RequireAuthorization();
+
         // Retrieve all todos
         app.MapGet("/todos", (TodoListContext context) =>
         {
