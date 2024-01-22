@@ -7,10 +7,9 @@ This tutorial shows you how to build and modify a Blazor app.
 - [.NET SDK](https://dotnet.microsoft.com/download)
 - [dotnet command](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet)
 - Blazor WASM App
-- Run with debugging
 - Run with Hot Reload
 - Try and understand the Counter sample
-- Add a new component
+- Add a new component (.razor)
 - Modify an existing component
 - [Blazor Rounting](https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-5.0)
 ### [Build a Blazor todo list app](https://docs.microsoft.com/en-us/aspnet/core/tutorials/build-a-blazor-app?view=aspnetcore-5.0&pivots=webassembly)
