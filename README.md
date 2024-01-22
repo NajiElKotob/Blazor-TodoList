@@ -26,6 +26,7 @@ This tutorial shows you how to build and modify a Blazor app.
 - Forms and validation
 - Add @onclick attribute
 - Add @bind attribute
+  - [Blazor Basics: Data Binding in Blazor](https://www.telerik.com/blogs/blazor-basics-data-binding) - telerik.com
 - Use @todos.Count
 ### SEO
 * [How do you create an SEO-friendly Blazor WebAssembly application?](https://www.syncfusion.com/faq/blazor/general/how-do-you-create-an-seo-friendly-blazor-webassembly-application) - syncfusion.com
