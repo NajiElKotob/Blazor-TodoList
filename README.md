@@ -37,6 +37,7 @@ This tutorial shows you how to build and modify a Blazor app.
   - [How to capture input keyboard events?](https://www.syncfusion.com/faq/blazor/event-handling/how-to-capture-input-keyboard-events) - syncfusion.com
 - [Blazor JavaScript interoperability (JS interop)](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-5.0)
 - [CSS isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0)
+- [ASP.NET Core Blazor forms validation](https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation?view=aspnetcore-8.0)
 - [Publish to Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/)
 - [Live Demo](https://yellow-pond-061b32610.azurestaticapps.net/todo)
 
