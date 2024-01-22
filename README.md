@@ -32,6 +32,7 @@ This tutorial shows you how to build and modify a Blazor app.
 ### Blazor todo list app (Advanced Touches)
 - Add a remove Todo feature
 - Handle Keyboard Events in C#
+  - [How to capture input keyboard events?](https://www.syncfusion.com/faq/blazor/event-handling/how-to-capture-input-keyboard-events) - syncfusion.com
 - [Blazor JavaScript interoperability (JS interop)](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-5.0)
 - [CSS isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0)
 - [Publish to Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/)
