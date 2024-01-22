@@ -31,6 +31,7 @@ This tutorial shows you how to build and modify a Blazor app.
 * [How do you create an SEO-friendly Blazor WebAssembly application?](https://www.syncfusion.com/faq/blazor/general/how-do-you-create-an-seo-friendly-blazor-webassembly-application) - syncfusion.com
 ### Blazor todo list app (Advanced Touches)
 - Add a remove Todo feature
+  - [How to Pass Arguments to Your onclick Functions in Blazor](https://www.telerik.com/blogs/how-to-pass-arguments-to-your-onclick-functions-blazor) 
 - Handle Keyboard Events in C#
   - [How to capture input keyboard events?](https://www.syncfusion.com/faq/blazor/event-handling/how-to-capture-input-keyboard-events) - syncfusion.com
 - [Blazor JavaScript interoperability (JS interop)](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-5.0)
