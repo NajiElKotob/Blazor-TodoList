@@ -17,7 +17,7 @@ This tutorial shows you how to build and modify a Blazor app.
 - Add a new Todo Razor component
 - @page Razor directive
 - Add the Todo component to the navigation bar
-- Add a TodoItem class (POCO)
+- Add a TodoItem class ([POCO](https://medium.com/womenintechnology/writing-instantiating-and-initializing-pure-c-classes-pocos-7b6bcc00b478))
 - Add a field for the todo items in the @code block
 - Add unordered list markup and a foreach loop
 - Add UI (HTML)
