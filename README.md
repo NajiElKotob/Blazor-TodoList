@@ -31,6 +31,7 @@ This tutorial shows you how to build and modify a Blazor app.
 * [How do you create an SEO-friendly Blazor WebAssembly application?](https://www.syncfusion.com/faq/blazor/general/how-do-you-create-an-seo-friendly-blazor-webassembly-application) - syncfusion.com
 ### Concepts
 - [Component lifecycles](https://blazor-university.com/components/component-lifecycles/) - blazor-university.com
+- [Service Lifetimes in Blazor](https://chrissainty.com/service-lifetimes-in-blazor/) - chrissainty.com
 ### Blazor todo list app (Advanced Touches)
 - Add a remove Todo feature
   - [How to Pass Arguments to Your onclick Functions in Blazor](https://www.telerik.com/blogs/how-to-pass-arguments-to-your-onclick-functions-blazor) 
