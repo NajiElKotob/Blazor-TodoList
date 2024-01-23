@@ -37,6 +37,7 @@ This tutorial shows you how to build and modify a Blazor app.
   - [How to Pass Arguments to Your onclick Functions in Blazor](https://www.telerik.com/blogs/how-to-pass-arguments-to-your-onclick-functions-blazor) 
 - Handle Keyboard Events in C#
   - [How to capture input keyboard events?](https://www.syncfusion.com/faq/blazor/event-handling/how-to-capture-input-keyboard-events) - syncfusion.com
+- [Working with Query Strings in Blazor](https://chrissainty.com/working-with-query-strings-in-blazor/) - chrissainty.com
 - [Blazor JavaScript interoperability (JS interop)](https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/?view=aspnetcore-5.0)
 - [CSS isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0)
 - [ASP.NET Core Blazor forms validation](https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation?view=aspnetcore-8.0)
