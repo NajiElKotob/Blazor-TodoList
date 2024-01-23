@@ -38,5 +38,8 @@ This tutorial shows you how to build and modify a Blazor app.
 - [CSS isolation](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/css-isolation?view=aspnetcore-6.0)
 - [ASP.NET Core Blazor forms validation](https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation?view=aspnetcore-8.0)
 - [Publish to Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/)
+### Migration
+- [Migrate from ASP.NET Core 7.0 to 8.0](https://learn.microsoft.com/en-us/aspnet/core/migration/70-80?view=aspnetcore-8.0&tabs=visual-studio)
+### Demo
 - [Live Demo](https://yellow-pond-061b32610.azurestaticapps.net/todo)
 
